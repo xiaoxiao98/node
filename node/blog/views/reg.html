@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>大笑笑的博客-注册页面</title>
+
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="shortcut icon" href="/uploads/default.jpg" type="imge/x-icon">
+
+    <link href="/css/plugins/morris.css" rel="stylesheet">
+
+    <link href="/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <style>
+    body {
+		background: url(/uploads/login.jpg);
+
+	}
+
+	a {
+		color: #333;
+	}
+	.box {
+		width: 860px;
+		margin-top: 100px;
+		/*color: #9E7E63;*/
+		background-color: rgba(255,255,255,.8);
+		background: url(/uploads/beijing1.jpg) no-repeat;
+		background-size: contain;
+	}
+	.row .reg {
+		color: #4e3011;
+	}
+	a:hover {
+		text-decoration: none;
+		color: #9E7E6B;
+
+	}
+	input {
+		border: 1px solid #9e7e6b !important; 
+		background: none !important;
+	}
+	.form-control::placeholder {
+		letter-spacing: 6px;
+		color: #9E7E6B;
+		opacity: .8;
+	}
+	button.send {
+		color: #666;
+	}
+    </style>
+
+</head>
+<body>
+	<div class="container-fluid table box">
+		<div class="row">
+			<div class="col-lg-8">
+				<h1 class="page-header col-md-offset-2 reg">请注册</h1>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12">
+				<h4 class="page-header col-md-offset-10">
+					<a href="/">返回首页</a>
+					<br>
+					<br>
+					<a href="/login">已注册去登录</a>
+
+				</h4>
+			</div>
+		</div>
+		<form action="checkUsername" method="post"  class="form-horizontal">
+
+			<div class="form-group usert has-feedback">
+	            <label for="username" class="col-sm-3 control-label">用户名：</label>
+	            <div class="col-sm-6">
+	                <input type="text" class="form-control username" id="username"name="username" value="" placeholder="请输入4-20位的字母数字下划线">
+	                <span class="glyphicon  userf form-control-feedback" aria-hidden="true"></span>
+	                <small class="control-label">请用字母数字下划线命名</small>
+	            </div>
+	            <!--has-success glyphicon-ok -->
+	        </div>
+
+			<div class="form-group">
+	            <label for="password" class="col-sm-3 control-label">密码：</label>
+	            <div class="col-sm-6">
+	                <input type="password" class="form-control" id="password"name="password" value="" placeholder="请输入密码">
+	            </div>
+	        </div>
+
+	        <div class="form-group">
+	            <label for="phone" class="col-sm-3 control-label">手机号：</label>
+	            <div class="col-sm-4">
+	                <input type="phone" class="form-control phone" id="phone"name="phone" value="" placeholder="请输入手机号">
+	            </div>&nbsp;&nbsp;&nbsp;&nbsp;
+	            <button type="button" class="btn btn-default send">点 击 发 送</button>
+	        </div>
+
+	        <div class="form-group">
+	            <label for="code" class="col-sm-3 control-label">验证码：</label>
+	            <div class="col-sm-4">
+	                <input type="code" class="form-control" id="code"name="code" value="" placeholder="请输入验证码">
+	            </div>
+	        </div>
+
+			<div class="form-group">
+	            <div class="col-sm-offset-3 col-sm-10">
+	              <button type="submit" class="btn btn-danger">提 &nbsp;交</button>
+	            </div>
+	        </div>
+		</form>
+	</div>
+
+	<script src="/js/jquery.min.js"></script>
+	<script>
+	// 判断用户名格式，4-20位数字字母下划线，然后通过后再发送给服务器，判断用户名是否存在
+	// 当username失焦的时候，获取用户输入的值，检测
+	$('.usert small').hide()
+
+	$('.username').blur(function(){
+
+		var value=$(this).val().trim();
+		if(value.length==0){
+			$('.usert').addClass('has-error')
+			$('.userf').addClass('glyphicon-remove');
+			return;
+		}
+
+		var reg=/^\w{4,20}$/;
+			// 如果验证不通过，阻止函数执行
+		if( !reg.test(value)){
+			$('.usert').addClass('has-error')
+			$('.userf').addClass('glyphicon-remove');
+			$('.usert small').show()
+			return;
+			
+		} else {
+			$('.usert').removeClass('has-error')
+			$('.userf').removeClass('glyphicon-remove');
+			$('.usert').addClass('has-success')
+			$('.userf').addClass('glyphicon-ok');
+			$('.usert small').hide()
+		}
+		
+		// 检测格式成功，将用户名发到服务器，判断用户名是否存在
+		$.post('/checkUsername',{username:value},function(msg){
+			if(msg.success==1){
+				//用户名被注册
+				console.log('用户名已经被注册')
+
+			}else {
+				console.log('注册成功')
+				$('.usert').addClass('has-success')
+				$('.userf').addClass('glyphicon-ok');
+				$('usert small').hide()
+
+			}
+		})
+	})
+
+	// 当点击send发送ajax，将手机号发送到服务器
+	$('.send').click(function(){
+		// 获取用户输入的手机号
+		var value=$('.phone').val()
+		// console.log(value)
+		// 将手机号发送给服务器
+		$.post('/send',{phone : value},function(msg){
+			if(msg.success == 1){
+				alert('短信发送成功，请注意查收')
+			}else {
+				alert('短信发送失败')
+			}
+		})
+	})
+	</script>
+</body>
+</html>

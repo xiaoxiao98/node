@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>大笑笑的博客-我的采集</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="/uploads/default.jpg" type="imge/x-icon">
+
+
+    <!-- Morris Charts CSS -->
+    <link href="/css/plugins/morris.css" rel="stylesheet">
+    <!-- markdown的css样式 -->
+    <link rel="stylesheet" href="/editor.md/css/editormd.preview.css">
+    <!-- Custom Fonts -->
+    <link href="/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <style>
+      body {
+        overflow-x: hidden;
+        background: #f5f5f5;
+      }
+      .navbar-default {
+        background: #9E7E6B;
+       
+      }
+      .tit,.back{
+         color: #eee !important;
+      }
+      .tit:hover{
+         color: #fff !important;
+      }
+      .back:hover{
+         color: #fff !important;
+      }
+      .fixed {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        right: 0;
+        width: 80px;
+        height: 60px;
+        text-align: center;
+        line-height: 60px;
+        background: #eee;
+      }
+      .fixed:hover {
+        color: #9e7e6b;
+        cursor: pointer;
+      }
+      .likes {
+        float: left;
+        width: 242px;
+        height: 360px;
+        text-align: center;
+        margin-left: 30px;
+        margin-bottom: 20px;
+        padding: 10px;
+        background: #fff;
+        border: 1px solid #fff;
+        transition: all .5s;
+        
+      }
+      .likes:hover {
+        border: 1px solid #9E7E6B;
+        box-shadow: 0 4px 10px rgba(0,0,0,.1);
+        transition: all .5s;
+
+      }
+      dd p {
+        cursor: pointer;
+      }
+      dd p:hover {
+        color: #9E7E6B;
+      }
+      dd span {
+        color: #9E7E6B;
+      }
+      dd span.pri {
+        font-size: 18px;
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body>
+
+  <!-- 导航 -->
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand tit" href="/me">我的采集</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li><a class="back" href="/">返回主页</a></li>
+            </ul>
+        </div>
+      </div>
+    </nav>
+    <a href="/me/collect" style="display:none">点击采集</a>
+      
+    <div class="row">
+
+    
+      <div class="container">
+        <% likes.forEach(function(value,key){ %>
+        <div class="likes">
+          <dl>
+            <dt>
+              <img src="<%= value.image%>" style="width:214px; height: 270px">
+            </dt>
+            <dd>
+              <p><%= value.title%></p>
+            </dd>
+            <dd>
+              <small>参考价格：</small>
+              <span>¥</span>
+              <span class="pri"><%= value.price%></span>
+            </dd>
+          </dl> 
+        </div>
+        <% })%>
+      </div>
+    </div>
+    </table>
+
+
+
+
+   <div class="fixed">回顶部</div>
+    <script src="/js/jquery-1.11.0.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/js/bootstrap.min.js"></script>
+
+    <script>
+       // 当页面滚动到500px的时候，显示.fixed,点击.fixed的时候，页面滚动到顶部
+          //当页面滚动到300的时候，显示出来回顶部
+        $(window).scroll(function(){
+            if($(this).scrollTop()>=600){
+              $('.fixed').show();
+            } else {
+              $('.fixed').hide();
+
+            }
+        })
+         $('.fixed').click(function(){
+          $('html,body').animate({scrollTop:'0'},200)
+         })
+         /* $('.fixed').click(function){
+            $('html,body').animate({scrollTop:'0'},1000);
+          });*/
+    </script>
+  </body>
+</html>
+

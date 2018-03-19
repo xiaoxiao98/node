@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/uploads/default.jpg" type="imge/x-icon">
+
+    <title>大笑笑的博客-修改用户</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/css/sb-admin.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="/css/plugins/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+       <!-- 引入网站的顶部导航和左侧导航 -->
+        <%- include ../nav.html %>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            用户修改
+                        </h1>
+                    </div>
+                </div>
+                 <div class="row">
+                    <div class="col-lg-12">
+                       <form action="/users/update" method="post" class="form-horizontal">
+                            <input type="hidden" name="_id" value="<%=user._id%>">
+                            <div class="form-group">
+                                <label for="username" class="col-sm-2 control-label">用户名：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="username" name="username" value="<%=user.username%>">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">性别：</label>
+                                <div class="col-sm-10">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="sex" value="0" <%=user.sex==0 ? 'checked' : ''%>> 男
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="sex" value="1" <%=user.sex==1 ? 'checked' : ''%>> 女
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="sex" value="2" <%=user.sex==2 ? 'checked' : ''%>> 保密
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="age" class="col-sm-2 control-label">年龄：</label>
+                                <div class="col-sm-2">
+                                    <input type="number" class="form-control" id="age" name="age" value="<%=user.age%>">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="likes" class="col-sm-2 control-label">爱好：</label>
+                                <div class="col-sm-10">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="likes" value="0" <%=user.likes.indexOf(0) !=-1 ? 'checked' : ''%>> 篮球
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="likes" value="1" <%=user.likes.indexOf(1) !=-1 ? 'checked' : ''%>> 足球
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="likes" value="2" <%=user.likes.indexOf(2) !=-1 ? 'checked' : ''%>> 排球
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="likes" value="3" <%=user.likes.indexOf(3) !=-1 ? 'checked' : ''%>> 羽毛球
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="likes" value="4" <%=user.likes.indexOf(4) !=-1 ? 'checked' : ''%>> 乒乓球
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="likes" class="col-sm-2 control-label">籍贯：</label>
+                                <div class="col-sm-2">
+                                    <select class="form-control" name="position">
+                                        <option value="">--请选择--</option>
+                                        <option value="0" <%=user.position==0 ? 'selected' : ''%>>北京市</option>
+                                        <option value="1" <%=user.position==1 ? 'selected' : ''%>>河北省</option>
+                                        <option value="2" <%=user.position==2 ? 'selected' : ''%>>辽宁省</option>
+                                        <option value="3" <%=user.position==3 ? 'selected' : ''%>>陕西省</option>
+                                        <option value="4" <%=user.position==4 ? 'selected' : ''%>>河南省</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+
+                            <div class="form-group">
+                                <label for="likes" class="col-sm-2 control-label">个人简介：</label>
+                                <div class="col-sm-10">
+                                    <textarea name="intro" class="form-control" rows="3"><%=user.intro%></textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                  <button type="submit" class="btn btn-default">提交</button>
+                                </div>
+                            </div>
+                            
+                        </form>
+
+                    </div>
+                </div>
+                
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+
+    <!-- jQuery Version 1.11.0 -->
+    <script src="/js/jquery-1.11.0.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/js/bootstrap.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="/js/plugins/morris/raphael.min.js"></script>
+    <script src="/js/plugins/morris/morris.min.js"></script>
+    <script src="/js/plugins/morris/morris-data.js"></script>
+
+</body>
+
+</html>

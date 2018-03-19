@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>大笑笑的博客-主页</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="/uploads/default.jpg" type="imge/x-icon">
+    <!-- Morris Charts CSS -->
+    <link href="/css/plugins/morris.css" rel="stylesheet">
+    <!-- markdown的css样式 -->
+    <link rel="stylesheet" href="/editor.md/css/editormd.preview.css">
+    <!-- Custom Fonts -->
+    <link href="/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <style>
+      .fixed {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        right: 0;
+        width: 80px;
+        height: 60px;
+        text-align: center;
+        line-height: 60px;
+        background: #eee;
+      }
+      .fixed:hover {
+        color: #9e7e6b;
+        cursor: pointer;
+      }
+      .box {
+        /*background: url(/uploads/index.jpg);*/
+      }
+    </style>
+  </head>
+  <body>
+
+  <!-- 导航 -->
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">大笑笑的博客</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <% types.forEach(function(value,key){ %>
+              <li><a href="?tid=<%= value._id%>"><%= value.typename%></a></li>
+              <% }) %>
+            </ul>
+            
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="/users">后台</a></li>
+             <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">关于我 <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/me">我的喜欢</a></li>
+                <li><a href="/reg">注册</a></li>
+                <li><a href="/login">登录</a></li>
+              </ul>
+            </li>
+            <ul>
+        </div>
+      </div>
+    </nav>
+   <!--  内容 -->
+   <div class="container">
+     <div class="row">
+       <div class="col-md-3">
+           <div class="list-group">
+               <% articles.forEach(function(value,key){ %>
+                  <!-- 点击分类的时候，只有aid没有tid，需要在前面加上tid -->
+                  <a href="?tid=<%=tid%>&aid=<%= value._id%>" class="list-group-item"><%= value.articlename%></a>
+                <% }) %>
+               
+           </div>
+       </div>
+       <div class="col-md-9 box">
+         <h1><%= article.articlename%></h1>
+         <h3><%= moment(article.createAt).format('YYYY-MM-DD HH:mm:ss')%></h3>
+          <div id="content">
+            <textarea style="display:none"><%= article.content%></textarea>
+          </div>
+       </div>
+     </div>
+   </div>
+   <div class="fixed">回顶部</div>
+    <script src="/js/jquery-1.11.0.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/js/bootstrap.min.js"></script>
+  
+    <!-- markdown的js -->
+    <script src="/editor.md/lib/marked.min.js"></script>
+    <script src="/editor.md/lib/prettify.min.js"></script>
+    
+    <script src="/editor.md/lib/raphael.min.js"></script>
+    <script src="/editor.md/lib/underscore.min.js"></script>
+    <script src="/editor.md/lib/sequence-diagram.min.js"></script>
+    <script src="/editor.md/lib/flowchart.min.js"></script>
+    <script src="/editor.md/lib/jquery.flowchart.min.js"></script>
+
+    <script src="/editor.md/editormd.js"></script>
+
+    <script type="text/javascript">
+          $(function() {
+                  
+              testEditormdView2 = editormd.markdownToHTML("content", {
+                  htmlDecode      : "style,script,iframe",  // you can filter tags decode
+                  emoji           : true,
+                  taskList        : true,
+                  tex             : true,  // 默认不解析
+                  flowChart       : true,  // 默认不解析
+                  sequenceDiagram : true,  // 默认不解析
+              });
+          });
+
+         
+    </script>
+    <script>
+       // 当页面滚动到500px的时候，显示.fixed,点击.fixed的时候，页面滚动到顶部
+          //当页面滚动到300的时候，显示出来回顶部
+        $(window).scroll(function(){
+            if($(this).scrollTop()>=600){
+              $('.fixed').show();
+            } else {
+              $('.fixed').hide();
+
+            }
+        })
+         $('.fixed').click(function(){
+          $('html,body').animate({scrollTop:'0'},200)
+         })
+         /* $('.fixed').click(function){
+            $('html,body').animate({scrollTop:'0'},1000);
+          });*/
+    </script>
+  </body>
+</html>
+
